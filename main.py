@@ -41,11 +41,12 @@ RED_SPACESHIP = pygame.transform.rotate(pygame.transform.scale(
 SPACE = pygame.transform.scale(pygame.image.load(
     os.path.join('Assets', 'space2.png')), (WIDTH, HEIGHT))
 
-
+#makes the window
 def draw_window(red, yellow, red_bullets, yellow_bullets, red_health, yellow_health, time_remaining):
     WIN.blit(SPACE, (0, 0))
     pygame.draw.rect(WIN, BLACK, BORDER)
 
+    #draws the health
     red_health_text = HEALTH_FONT.render(
         "Health: " + str(red_health), 1, WHITE)
     yellow_health_text = HEALTH_FONT.render(
@@ -108,7 +109,7 @@ def handle_bullets(yellow_bullets, red_bullets, yellow, red):
         elif bullet.x < 0:
             red_bullets.remove(bullet)
 
-
+#writes who wins
 def draw_winner(text):
     draw_text = WINNER_FONT.render(text, 1, WHITE)
     WIN.blit(draw_text, (WIDTH/2 - draw_text.get_width() /
@@ -118,6 +119,7 @@ def draw_winner(text):
 
 
 def main():
+    #sets the spaceships in the starting position
     red = pygame.Rect(700,250, SPACESHIP_WIDTH, SPACESHIP_HEIGHT)
     yellow = pygame.Rect(100, 250, SPACESHIP_WIDTH, SPACESHIP_HEIGHT)
 
@@ -131,8 +133,8 @@ def main():
 
     clock = pygame.time.Clock()
     pygame.time.set_timer(pygame.USEREVENT, 1000)
-
-    time_remaining = 60
+#makes the timer
+    time_remaining = 40
 
     run = True
     while run:
@@ -142,9 +144,7 @@ def main():
                 time_remaining -= 1
                
                 if time_remaining == 0:
-                    # run = False
-
-                    # pygame.quit()
+                    
                     time_up = True
 
                     break
@@ -172,7 +172,6 @@ def main():
             if event.type == RED_HIT:
                 red_health -= 1
 
-
             if event.type == YELLOW_HIT:
                 yellow_health -= 1
 
@@ -184,7 +183,7 @@ def main():
                 winner_text = "Yellow Won on Time"
             else:
                 winner_text = "Tie on Time"
-
+#updates the winnew text variable to show who won
         if red_health <= 0:
             winner_text = "Yellow Wins!"
         if yellow_health <= 0:
